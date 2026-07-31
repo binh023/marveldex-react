@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
+
+import HeroCard from "../components/HeroCard";
 import { getHeroes } from "../services/marvelApi";
 
 function Heroes() {
     const [heroes, setHeroes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [search, setSearch] = useState("");
+
+    const filteredHeroes = heroes.filter((hero) => {
+        return hero.name.toLowerCase().includes(search.toLowerCase());
+
+    
+
+    })
 
     useEffect(() => {
         async function loadHeroes() {
             try {
                 const data = await getHeroes();
 
-                console.log("Dados recebidos:", data);
-
                 setHeroes(data);
             } catch (error) {
-                console.error("Erro na requisição:", error);
+                console.error(error);
 
                 setError("Não foi possível carregar os heróis.");
             } finally {
@@ -39,6 +47,7 @@ function Heroes() {
         return (
             <main className="pagina">
                 <h1>Heróis</h1>
+
                 <p>{error}</p>
             </main>
         );
@@ -47,8 +56,23 @@ function Heroes() {
     return (
         <main className="pagina">
             <h1>Heróis</h1>
+            <input 
+                type="search" placeholder="Pesquisar Herói..." 
+                value={search}
+                onChange={(event)=>{
+                    setSearch(event.target.value)
+                }}
+            
+            />
 
-            <p>Total de heróis: {heroes.length}</p>
+            <section className="lista-heroes">
+                {filteredHeroes.map((hero) => (
+                    <HeroCard
+                        key={hero.id}
+                        hero={hero}
+                    />
+                ))}
+            </section>
         </main>
     );
 }

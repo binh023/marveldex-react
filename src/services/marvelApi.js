@@ -15,4 +15,18 @@ async function getHeroes() {
     return data;
 }
 
-export { getHeroes };
+async function getHeroById(id) {
+    const heroes = await getHeroes();
+
+    const hero = heroes.find((item) => {
+        return item.id === Number(id);
+    });
+
+    if (!hero) {
+        throw new Error("Herói não encontrado.");
+    }
+
+    return hero;
+}
+
+export { getHeroes, getHeroById };

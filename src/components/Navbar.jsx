@@ -4,7 +4,7 @@ function Navbar() {
     return (
         <header className="cabecalho">
             <NavLink to="/" className="logo">
-                MarvelDex
+                HeroDex
             </NavLink>
 
             <nav className="menu">
