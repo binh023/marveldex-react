@@ -6,6 +6,7 @@ import Heroes from "./pages/Heroes.jsx";
 import About from "./pages/About.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import HeroDetails from "./pages/HeroDetails.jsx";
+import Battle from "./pages/Battle.jsx";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/heroes/:id" element={<HeroDetails/>}/>
                 <Route path="/sobre" element={<About />} />
                 <Route path="*" element={<NotFound />} />
+                <Route path="/battle" element={<Battle />} />
             </Routes>
         </>
     );

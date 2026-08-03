@@ -28,6 +28,15 @@ function Navbar() {
                 </NavLink>
 
                 <NavLink
+                    to="/battle"
+                    className={({ isActive }) =>
+                        isActive ? "menu-link ativo" : "menu-link"
+                    }
+                >
+                    Combate
+                </NavLink>
+
+                <NavLink
                     to="/sobre"
                     className={({ isActive }) =>
                         isActive ? "menu-link ativo" : "menu-link"
