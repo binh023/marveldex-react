@@ -1,3 +1,5 @@
+import { calculateOverall } from "../utils/heroUtils.js";
+
 const statLabels = {
     intelligence: "Inteligência",
     strength: "Força",

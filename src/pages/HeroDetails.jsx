@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router";
 
 import HeroStat from "../components/HeroStat";
 import { getHeroById } from "../services/marvelApi";
+import { calculateOverall } from "../utils/heroUtils.js";
+
 
 const labels = {
     intelligence: "Inteligência",
@@ -12,6 +14,7 @@ const labels = {
     power: "Poder",
     combat: "Combate",
 };
+
 
 function HeroDetails() {
     const { id } = useParams();
@@ -71,6 +74,8 @@ function HeroDetails() {
             ? hero.biography.fullName
             : "Identidade desconhecida";
 
+    const overall = calculateOverall(hero.powerstats);
+
     return (
         <main className="pagina hero-details">
             <section className="hero-info">
@@ -80,24 +85,34 @@ function HeroDetails() {
                     className="hero-detail-image"
                 />
 
-                <h1>{hero.name}</h1>
+                <div className="hero-info-content">
+                    <div className="hero-title-row">
+                        <div>
+                            <h1>{hero.name}</h1>
+                            <h2>{fullName}</h2>
+                        </div>
 
-                <h2>{fullName}</h2>
+                        <div className="hero-overall">
+                            <strong>{overall}</strong>
+                            <span>Overall</span>
+                        </div>
+                    </div>
 
-                <p>
-                    <strong>Editora:</strong>{" "}
-                    {hero.biography.publisher || "Não informada"}
-                </p>
+                    <p>
+                        <strong>Editora:</strong>{" "}
+                        {hero.biography.publisher || "Não informada"}
+                    </p>
 
-                <p>
-                    <strong>Primeira aparição:</strong>{" "}
-                    {hero.biography.firstAppearance || "Não informada"}
-                </p>
+                    <p>
+                        <strong>Primeira aparição:</strong>{" "}
+                        {hero.biography.firstAppearance || "Não informada"}
+                    </p>
 
-                <p>
-                    <strong>Ocupação:</strong>{" "}
-                    {hero.work.occupation || "Não informada"}
-                </p>
+                    <p>
+                        <strong>Ocupação:</strong>{" "}
+                        {hero.work.occupation || "Não informada"}
+                    </p>
+                </div>
             </section>
 
             <section className="hero-stats">
@@ -108,7 +123,7 @@ function HeroDetails() {
                         <HeroStat
                             key={statName}
                             title={labels[statName] || statName}
-                            value={statValue}
+                            value={Number(statValue) || 0}
                         />
                     )
                 )}
